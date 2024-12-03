@@ -1,6 +1,14 @@
 import { theme } from "@/theme";
 import { StyleSheet, Text, Pressable, Platform } from "react-native";
 import * as Haptics from "expo-haptics";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
+import { useState } from "react";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 type Props = {
   title: string;
@@ -8,24 +16,33 @@ type Props = {
 };
 
 export function TracktimeButton({ title, onPress }: Props) {
+  const [isPressed, setIsPressed] = useState(false);
   const handlePress = () => {
     if (Platform.OS !== "web") {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
     onPress();
   };
+  const scale = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
   return (
-    <Pressable
+    <AnimatedPressable
       onPress={handlePress}
-      style={({ pressed }) => {
-        if (pressed) {
-          return [styles.button, styles.buttonPressed];
-        }
-        return styles.button;
+      onPressIn={() => {
+        setIsPressed(true);
+        scale.value = withSpring(0.92);
       }}
+      onPressOut={() => {
+        setIsPressed(false);
+        scale.value = withSpring(1);
+      }}
+      style={[styles.button, animatedStyle, isPressed && styles.buttonPressed]}
     >
       <Text style={styles.text}>{title}</Text>
-    </Pressable>
+    </AnimatedPressable>
   );
 }
 
@@ -40,6 +57,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 6,
     backgroundColor: theme.colorBrown,
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonPressed: {
     backgroundColor: theme.colorDarkBrown,
