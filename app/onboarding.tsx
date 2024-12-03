@@ -2,6 +2,7 @@ import { View, StyleSheet, Button } from "react-native";
 import { theme } from "@/theme";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "expo-router";
+import { TracktimeButton } from "@/components/TracktimeButton";
 
 export default function OnboardingScreen() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function OnboardingScreen() {
 
   return (
     <View style={styles.container}>
-      <Button title="let me in" onPress={handlePress} />
+      <TracktimeButton title="let me in" onPress={handlePress} />
     </View>
   );
 }
@@ -26,4 +27,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: theme.colorWhite,
   },
+
 });

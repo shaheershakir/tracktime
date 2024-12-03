@@ -2,6 +2,7 @@ import { View, StyleSheet, Button } from "react-native";
 import { theme } from "@/theme";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "expo-router";
+import { TracktimeButton } from "@/components/TracktimeButton";
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Button title="Let out" onPress={handlePress} />
+      <TracktimeButton title="Let out" onPress={handlePress} />
     </View>
   );
 }
