@@ -1,8 +1,9 @@
-import { Redirect, Tabs } from "expo-router";
+import { Link, Redirect, Tabs } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import { theme } from "@/theme";
 import { useUserStore } from "@/store/userStore";
+import { Pressable } from "react-native";
 
 export default function Layout() {
   const hasFinishedOnboarding = useUserStore(
@@ -21,6 +22,13 @@ export default function Layout() {
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="home" size={size} color={color} />
+          ),
+          headerRight: () => (
+            <Link href="/new" asChild>
+              <Pressable hitSlop={20} style={{ marginRight: 18 }}>
+                <AntDesign name="pluscircleo" size={24} color="black" />
+              </Pressable>
+            </Link>
           ),
         }}
       />
