@@ -16,19 +16,13 @@ export default function Layout() {
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: theme.colorBrown }}>
       <Tabs.Screen
-        name="index"
+        name="(home)"
         options={{
           title: "Home",
           tabBarShowLabel: false,
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="home" size={size} color={color} />
-          ),
-          headerRight: () => (
-            <Link href="/new" asChild>
-              <Pressable hitSlop={20} style={{ marginRight: 18 }}>
-                <AntDesign name="pluscircleo" size={24} color="black" />
-              </Pressable>
-            </Link>
           ),
         }}
       />
