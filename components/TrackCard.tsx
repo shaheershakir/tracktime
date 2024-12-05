@@ -6,7 +6,7 @@ import TimeImage from "@/components/TimeImage";
 export function TrackCard({ plant }: { plant: PlantType }) {
   return (
     <View style={styles.plantCard}>
-      <TimeImage size={100} />
+      <TimeImage size={100} imageUri={plant.imageUri} />
       <View style={styles.details}>
         <Text numberOfLines={1} style={styles.plantName}>
           {plant.name}
