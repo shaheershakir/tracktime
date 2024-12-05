@@ -11,31 +11,38 @@ import { useState } from "react";
 import { TracktimeButton } from "@/components/TracktimeButton";
 import TimeImage from "@/components/TimeImage";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useRouter } from "expo-router";
+import { usePlantStore } from "@/store/plantStore";
 
 export default function NewScreen() {
   const [name, setName] = useState<string>();
   const [days, setDays] = useState<string>();
+  const addPlant = usePlantStore((store) => store.addPlant);
+  const router = useRouter();
 
   const handleSubmit = () => {
     if (!name) {
-      return Alert.alert("Validation Error", "Give your plant a name");
+      return Alert.alert("Validation Error", "Give your track a name");
     }
 
     if (!days) {
       return Alert.alert(
         "Validation Error",
-        `How often does ${name} need to be watered?`
+        `How often does ${name} need to be tracked?`
       );
     }
 
     if (Number.isNaN(Number(days))) {
       return Alert.alert(
         "Validation Error",
-        "Watering frequency must be a be a number"
+        "Tracking frequency must be a number"
       );
     }
 
-    console.log("Adding plant", name, days);
+    addPlant(name, Number(days));
+    router.navigate("/");
+
+    console.log("Adding track", name, days);
   };
 
   return (
@@ -55,7 +62,7 @@ export default function NewScreen() {
         placeholder="E.g. Car wash"
         autoCapitalize="words"
       />
-      <Text style={styles.label}>Watering Frequency (every x days)</Text>
+      <Text style={styles.label}>Tracking Frequency (every x days)</Text>
       <TextInput
         value={days}
         onChangeText={setDays}
@@ -63,7 +70,7 @@ export default function NewScreen() {
         placeholder="E.g. 6"
         keyboardType="number-pad"
       />
-      <TracktimeButton title="Add plant" onPress={handleSubmit} />
+      <TracktimeButton title="Add track" onPress={handleSubmit} />
     </KeyboardAwareScrollView>
   );
 }

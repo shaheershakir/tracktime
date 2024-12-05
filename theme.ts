@@ -6,5 +6,6 @@ export const theme = {
   colorViola: "#f6d5f7",
   colorPink: "#fbe9d7",
   colorWhite: "#fff",
-  colorBlack: "747474",
+  colorBlack: "#000",
+  colorGrey: "#808080",
 };
